@@ -4,6 +4,7 @@ import './App.css'
 import { Counter } from './components/counter';
 import { DataTable } from './components/dataTable';
 import { PostDataTable } from './components/postTable';
+import { CreatePost } from './components/createPost';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <div className="card">
         <Counter />
         <DataTable />
+        <CreatePost />
         <PostDataTable />
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR

@@ -13,7 +13,7 @@ interface PostState {
   fetchPosts: () => Promise<void>;
 }
 
-export const usePostStore = create<PostState>((set: (arg0: { loading: boolean; posts?: any; }) => void) => ({
+export const usePostStore = create<PostState>((set) => ({
   posts: [],
   loading: false,
   fetchPosts: async () => {
@@ -26,6 +26,29 @@ export const usePostStore = create<PostState>((set: (arg0: { loading: boolean; p
         }, 10000);
     } catch (error) {
       console.error('Failed to fetch posts:', error);
+      set({ loading: false });
+    }
+  },
+  createPost: async (newPost: any) => {
+    set({ loading: true });
+    try {
+      const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        body: JSON.stringify(newPost),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+      const createdPost = await response.json();
+      
+      set((state) => {
+        return ({
+          posts: [...state.posts, createdPost],
+          loading: false,
+        });
+      });
+    } catch (error) {
+      console.error('Failed to create post:', error);
       set({ loading: false });
     }
   },
