@@ -1,27 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { usePostStore } from "../stores/usePostStore";
+import styles from "./createPost.module.css";
 
 export function CreatePost() {
   const { createPost, loading } = usePostStore();
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newPost = {
       userId: 1, // Default userId
       title,
-      body
+      body,
     };
     await createPost(newPost);
-    setTitle('');
-    setBody('');
+    setTitle("");
+    setBody("");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="create-post-form">
+    <form onSubmit={handleSubmit} className={styles.container}>
       <h2>Create New Post</h2>
-      <div>
+      <div className={styles.fieldsContainer}>
         <label htmlFor="title">Title:</label>
         <input
           id="title"
@@ -29,9 +30,7 @@ export function CreatePost() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
-        />
-      </div>
-      <div>
+        />      
         <label htmlFor="body">Content:</label>
         <textarea
           id="body"
@@ -41,7 +40,7 @@ export function CreatePost() {
         />
       </div>
       <button type="submit" disabled={loading}>
-        {loading ? 'Creating...' : 'Create Post'}
+        {loading ? "Creating..." : "Create Post"}
       </button>
     </form>
   );

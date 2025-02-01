@@ -11,6 +11,7 @@ interface PostState {
   posts: Post[];
   loading: boolean;
   fetchPosts: () => Promise<void>;
+  createPost: (newPost: any) => Promise<void>;
 }
 
 export const usePostStore = create<PostState>((set) => ({
